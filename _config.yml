@@ -17,17 +17,16 @@ title: My Blog
 email: ianbayne at gmail
 description: >- # this means to ignore newlines until "baseurl:"
   This is an incredibly awesome blog.
-baseurl: '' # the subpath of your site, e.g. /blog
-url: '' # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://ianbayne.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ian_bayne
-github_username:  ianbayne
+github_username: ianbayne
 
 # Build settings
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
-
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
