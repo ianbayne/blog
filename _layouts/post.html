@@ -8,9 +8,13 @@ layout: default
     {%- if page.tags.size > 0 -%}
       <div class="tag-list">
         {%- for tag in page.tags -%}
-          {%- assign tag_link = tag | replace: ' ', '-' | replace: '&', 'and' | downcase -%}
           {%- assign category = page.category[0] | downcase -%}
-          <a href={{ site.baseurl }}/{{ category }}/tags/{{ tag_link }}>{{ tag }}</a>
+          {%- if tag == '日本語' -%}
+            <a href={{ site.baseurl }}/{{ category }}/tags/japanese>{{ tag }}</a>
+          {%- else if -%}
+            {%- assign tag_link = tag | replace: ' ', '-' | replace: '&', 'and' | downcase -%}
+            <a href={{ site.baseurl }}/{{ category }}/tags/{{ tag_link }}>{{ tag }}</a>
+          {%- endif -%}
         {%- endfor -%}
       </div>
     {%- endif -%}

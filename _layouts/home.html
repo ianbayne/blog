@@ -28,9 +28,13 @@ layout: default
           {%- if post.tags.size > 0 -%}
             <div class="tag-list">
               {%- for tag in post.tags -%}
-                {%- assign tag_link = tag | replace: ' ', '-' | replace: '&', 'and' | downcase -%}
                 {%- assign category_link = category[0] | downcase -%}
-                <a href={{ site.baseurl }}/{{ category_link }}/tags/{{ tag_link }}>{{ tag }}</a>
+                {%- if tag ==  '日本語' -%}
+                  <a href={{ site.baseurl }}/{{ category_link }}/tags/japanese>{{ tag }}</a>
+                {%- else if -%}
+                  {%- assign tag_link = tag | replace: ' ', '-' | replace: '&', 'and' | downcase -%}
+                  <a href={{ site.baseurl }}/{{ category_link }}/tags/{{ tag_link }}>{{ tag }}</a>
+                {%- endif -%}
               {%- endfor -%}
             </div>
           {%- endif -%}
