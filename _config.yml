@@ -23,6 +23,14 @@ github_username: ianbayne
 permalink: /:categories/:title
 show_excerpts: true
 
+collections:
+  blog_tags:
+    output: true
+    permalink: /blog/tags/:title
+  review_tags:
+    output: true
+    permalink: /reviews/tags/:title
+
 # Build settings
 markdown: kramdown
 theme: minima
