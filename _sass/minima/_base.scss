@@ -56,6 +56,7 @@ main {
  */
 img {
   max-width: 100%;
+  height: auto;
   vertical-align: middle;
 }
 
@@ -113,7 +114,6 @@ a {
 
   &:hover {
     color: darken($brand-color, 15%);
-    text-decoration: none;
   }
 }
 
@@ -208,12 +208,6 @@ pre {
     fill: #{$grey-color};
     padding-right: 5px;
     vertical-align: text-top;
-}
-
-.social-media-list {
-  li + li {
-    padding-top: 5px;
-  }
 }
 
 
