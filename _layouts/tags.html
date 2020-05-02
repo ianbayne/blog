@@ -2,7 +2,9 @@
 layout: default
 ---
 
-<h2>{{ page.category[0] | capitalize }} posts with the {{ page.title }} tag</h2>
+<header class="post-header">
+    <h1 class="page-title">{{ page.title | escape }}</h1>
+</header>
 
 {%- for tag in site.tags -%}
   {%- if tag[0] == page.title -%}
@@ -12,7 +14,7 @@ layout: default
           <li>
             {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
             <span class="post-meta">{{ post.date | date: date_format }}</span>
-            <h3 class="no-mar">
+            <h3 class="no-margin">
               <a class="post-link post-title" href="{{ post.url | relative_url }}">
                 {{ post.title | escape }}
               </a>

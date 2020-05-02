@@ -1,23 +1,15 @@
 ---
 layout: default
 ---
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name no-mar" itemprop="name headline">{{ page.title | escape }}</h1>
+    <h1 class="page-title p-name no-margin" itemprop="name headline">{{ page.title | escape }}</h1>
+
     {%- if page.tags.size > 0 -%}
-      <div class="tag-list">
-        {%- for tag in page.tags -%}
-          {%- assign category = page.category[0] | downcase -%}
-          {%- if tag == '日本語' -%}
-            <a href={{ site.baseurl }}/{{ category }}/tags/japanese>{{ tag }}</a>
-          {%- else if -%}
-            {%- assign tag_link = tag | replace: ' ', '-' | replace: '&', 'and' | downcase -%}
-            <a href={{ site.baseurl }}/{{ category }}/tags/{{ tag_link }}>{{ tag }}</a>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+      {%- include tags_list.html -%}
     {%- endif -%}
+
     <p class="post-meta">
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}

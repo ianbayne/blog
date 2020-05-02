@@ -1,18 +1,17 @@
 ---
-layout: default
+layout: page
 title: Blog
 permalink: /blog/
+categories: [Blog]
 ---
-
-This be the blogs.
 
 {%- if site.categories.Blog.size > 0 -%}
   <ul class="post-list">
     {%- for post in site.categories.Blog -%}
-      <li>
+      <li class="post">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3 class="no-mar">
+        <h3 class="no-margin">
           <a class="post-link post-title" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>

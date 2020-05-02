@@ -1,0 +1,11 @@
+<div class="tag-list">
+  {%- for tag in page.tags -%}
+    {%- assign category = page.category[0] | downcase -%}
+    {%- if tag == '日本語' -%}
+      <a href={{ site.baseurl }}/{{ category }}/tags/japanese>{{ tag }}</a>
+    {%- else if -%}
+      {%- assign tag_link = tag | replace: ' ', '-' | replace: '&', 'and' | downcase -%}
+      <a href={{ site.baseurl }}/{{ category }}/tags/{{ tag_link }}>{{ tag }}</a>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
