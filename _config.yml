@@ -22,6 +22,7 @@ twitter_username: ian_bayne
 github_username: ianbayne
 permalink: /:categories/:title
 show_excerpts: true
+excerpt_separator: <!-- more -->
 
 collections:
   blog_tags:
