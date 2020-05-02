@@ -13,13 +13,14 @@
 }
 
 .site-title {
-  @include relative-font-size(1.625);
-  font-weight: 500;
+  @include relative-font-size(6);
+  font-weight: 900;
   line-height: $base-line-height * $base-font-size * 2.25;
-  // line-height: $base-line-height * $base-font-size * 2.25;
-  letter-spacing: -1px;
-  margin-bottom: 0;
+  letter-spacing: -8px;
   float: left;
+  a {
+    color: darken($brand-color, 15%);
+  }
 }
 
 .site-nav {
