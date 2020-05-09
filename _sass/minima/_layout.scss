@@ -191,6 +191,10 @@
 
 .post-content {
   margin-bottom: $spacing-unit;
+  a {
+    font-weight: 500;
+  }
+
   p {
     @include relative-font-size(1.25);
     font-weight: 200;
