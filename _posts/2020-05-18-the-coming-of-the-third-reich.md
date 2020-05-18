@@ -4,6 +4,7 @@ title: The Coming of the Third Reich
 date: 2020-05-12
 tags: [English, Books, ★★★★★]
 category: [Reviews]
+description: Review of The Coming of the Third Reich by Richard J. Evans
 ---
 
 Having recently completed <a href="https://amzn.to/2T0Zggx">this book</a> I thought I would "pen" a short review. <!-- more -->This was an excellent and in-depth read. As the first of a three-part series, it takes us from the very beginnings of the Nazi party through its slow growth among the disenfranchised and unemployed, the failed Beer Hall Putsch, Hitler's short jail sentence, the re-engineering of the party to appeal to a broader segment of the German population, its growing popularity culminating in the elections of 1932, and then finally to Hitler's appointment as chancellor in 1933. 
