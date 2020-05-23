@@ -1,10 +1,11 @@
-function displayCurrentYear(tagID) {
-  return function() {
-    const currentYear = new Date().getFullYear();
-    const copyrightYear = document.getElementById(tagID);
-    copyrightYear.textContent = currentYear;
-  }
+function displayCurrentYear() {
+  const tagID = "copyright-year";
+  const copyrightYear = document.getElementById(tagID);
+  const currentYear = new Date().getFullYear();
+
+  copyrightYear.textContent = currentYear;
 }
 
-const tagID = 'copyright-year';
-document.addEventListener('DOMContentLoaded', displayCurrentYear(tagID));
+document.addEventListener("turbolinks:load", function() {
+  this.addEventListener("DOMContentLoaded", displayCurrentYear());
+});

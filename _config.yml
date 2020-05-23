@@ -38,6 +38,12 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-turbolinks
+
+# Optional
+turbolinks:
+  enabled: true # Set to false if you want to use the tag
+  url: /turbolinks.js
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
