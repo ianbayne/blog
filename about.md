@@ -5,4 +5,6 @@ permalink: /about/
 categories: [About]
 ---
 
-A place for me to wax poetic.
+<div class="post-content">
+    <p>A place for me to wax poetic.</p>
+</div>

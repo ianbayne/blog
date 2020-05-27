@@ -177,6 +177,9 @@
  */
 .post-header {
   margin-bottom: $spacing-unit;
+  h1 {
+    line-height: 1.1;
+  }
 }
 
 .post-title {
@@ -203,6 +206,7 @@
 
   h2 {
     @include relative-font-size(2);
+    font-weight: 700;
 
     @include media-query($on-laptop) {
       @include relative-font-size(1.75);
