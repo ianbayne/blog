@@ -46,7 +46,7 @@ public static void main(String[] args) {
 => Hi there!
 ```
 
-(Why dolphins you ask? Because I just got finished reading <a href="https://www.amazon.com/gp/product/055327418X/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=055327418X&linkCode=as2&tag=ianbayne-20&linkId=5fc2939133623e7c30685bc14b43a21b">Startide Rising</a> by David Brin and dolphins, or at least their sentient descendants, feature quite prominently. Scifi nerds take note: This is a fun one!)
+(Why dolphins you ask? Because I just got finished reading <a href="{{ "reviews/startide-rising" | relative_url }}">Startide Rising</a> by David Brin and dolphins, or at least their sentient descendants, feature quite prominently. Scifi nerds take note: This is a fun one!)
 
 All well and good, but say we want different types of animals and we want them to make noises more suitable to their distinct animal-ness? One way would be to create a couple of subclasses that inherit from our `Animal` class and define their own `makeNoise()` methods. While doing so, let's also change our `Animal` class into an abstract class to use as a reference for what methods our subclasses need to define. Why? Because it's a concept I'm just learning about and want to drum into my thick cranium with repeated forced exposure of course.
 
