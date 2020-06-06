@@ -1,6 +1,11 @@
 <div class="tag-list">
-  {%- for tag in page.tags -%}
-    {%- assign category = page.category[0] | downcase -%}
+  {%- if post -%}
+    {%- assign has_tags = post -%}
+  {%- elsif page -%}
+    {%- assign has_tags = page -%}
+  {%- endif -%}
+  {%- for tag in has_tags.tags -%}
+    {%- assign category = has_tags.category[0] | downcase -%}
     {%- if tag == '日本語' -%}
       <a href={{ site.baseurl }}/{{ category }}/tags/japanese>{{ tag }}</a>
     {%- elsif tag == '★★★★★' -%}
