@@ -8,6 +8,16 @@ categories: [Photos]
 <div class="photo">
     <figure>
         <picture>
+            <source srcset="/assets/images/hiker_frog@1600x1067.webp 740w" type="image/webp">
+            <img src="/assets/images/hiker_frog@1600x1067.jpg" loading="lazy" alt="Photo of a frog" title="Fujifilm XT-1: 1/60 sec, f/4.5, ISO 800" width="740">
+        </picture>
+        <figcaption>Mount Bounomine, Saitama</figcaption>
+    </figure>
+</div>
+
+<div class="photo">
+    <figure>
+        <picture>
             <source srcset="/assets/images/astoria_wreck@1600x1200.webp 740w" type="image/webp">
             <img src="/assets/images/astoria_wreck@1600x1200.jpg" loading="lazy" alt="Photo of a shipwreck" title="Canon PowerShot A80: 1/500 sec, f/4" width="740">
         </picture>
