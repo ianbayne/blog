@@ -1,0 +1,19 @@
+# REF: https://github.com/andrewmcodes/bridgetown-gh-pages-action
+
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build & deploy
+        uses: andrewmcodes/bridgetown-gh-pages-action@v0.0.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
