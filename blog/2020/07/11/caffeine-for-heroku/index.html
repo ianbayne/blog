@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Herokuにカフェインを | Ian Bayne&#39;s Blog</title>
+
+<meta name="description" content="Ian Bayne's home on the web" />
+
+<link rel="stylesheet" href="/_bridgetown/static/css/all.c73f0b00eca25cb43877.css" />
+<script src="/_bridgetown/static/js/all.0fe525e935d89d8e17de.js" defer></script>
+
+  </head>
+  <body class="post ">
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper"><div class="site-title"><a href="/">IB</a></div><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+            <a class="page-link" href="/about">About</a>
+  <a class="page-link" href="/blog">Blog</a>
+  <a class="page-link" href="/photos">Photos</a>
+  <a class="page-link" href="/reviews">Reviews</a>
+
+        </div>
+      </nav></div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper"><div class="breadcrumbs"><a href="/">Home</a><span>></span></div><article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="page-title no-margin" itemprop="name headline">Herokuにカフェインを</h1><div class="tag-list"></div><p class="post-meta">
+      <time class="dt-published" datetime="2020-07-11T00:00:00+00:00" itemprop="datePublished">Jul 11, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div lang="ja">
+    <a href="https://jp.heroku.com/home/">Heroku</a>はウェブアプリの開発から実行、運用を簡単にするプラートフォームで、うちの殆ど全てのアプリをHerokuでホスティングしている。
+    <!-- Necessary to ensure vertical space above Read More link -->
+    <div style="margin-bottom: 15px"></div>
+    <!-- more -->
+    プロフェッショナルアプリの場合、月極めのホスティング費用が高くなるが、DevOpsは不要なのでトータル料金が安くなる。<br />
+    趣味で作ったアプリも利用できるHerokuは無料サーバーを提供。メモリーや速さなどの限度はあるがCLIからpushすることだけでデプロイできるのでものすごく便利。<br />
+    ただし、無料の場合アクセスがないと30分でスリープしてしまい、スリープしてしまうと、アクセスした時点で起動するのでサイトが遅くなる。<br />
+    <br />
+    どうやってこれを回避できるかと今日考えたけど、解決方法が意外と楽チンだった。<br />
+    30分毎にアクセスが必要だし、そのアクセスの発信元がどこからでも良いので、アプリが自分を叩けばスリープしないはず。<br />
+    <br />
+    Herokuの環境では色々なAddonを追加できる。そのAddonの一つは<a href="https://elements.heroku.com/addons/scheduler"><span style="font-weight: 600">スケジューラ</span></a>といい、cronjobみたいなものだ。インターフェースは下記の通り。
+</div>
+<p><br />
+<img src="/images/heroku_scheduler.png" loading="lazy" alt="Job editor for Heroku Scheduler Addon" width="300px" style="margin: 0 auto;" />
+<br /></p>
+<div lang="ja">
+    "Every 10 minutes"を選択し、下記のようなcurlコマンドを入れてみた。
+</div>
+<div style="margin-bottom: 15px"></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl https://your-app-name-here.herokuapp.com/
+</code></pre></div></div>
+<div lang="ja">
+    そして30分待つともう一度アプリをアクセスしてみたら… 大成功！このような小さな問題の解決でもやっぱり楽しい。
+</div>
+
+
+  </div><a class="u-url" href="/blog/2020/07/11/caffeine-for-heroku/" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <p>&copy; <span id="copyright-year"></span> <a href="https://www.github.com/ianbayne">Ian Bayne</a></p>
+  </div>
+</footer>
+
+  </body>
+</html>
