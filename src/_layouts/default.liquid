@@ -1,21 +1,13 @@
 <!doctype html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html lang="en">
   <head>
     {% render "head", metadata: site.metadata, title: page.title %}
   </head>
   <body class="{{ page.layout }} {{ page.page_class }}">
+    {% render "navbar", metadata: site.metadata, page: page %}
 
-    {% render "header" %}
-
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {%- if page.layout == 'home' -%}
-          <div class="breadcrumbs">&nbsp;</div>
-        {%- else -%}
-          {%- render "breadcrumbs" -%}
-        {%- endif -%}
-        {{ content }}
-      </div>
+    <main>
+      {{ content }}
     </main>
 
     {% render "footer", metadata: site.metadata %}

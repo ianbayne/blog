@@ -5,7 +5,7 @@ permalink: /posts/
 ---
 
 <ul>
-  {% for post in site.collections.posts %}
+  {% for post in site.posts %}
     <li>
       <a href="{{ post.url }}">{{ post.title }}</a>
     </li>
