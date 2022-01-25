@@ -1,4 +1,4 @@
-function displayCurrentYear() {
+const displayCurrentYearInFooter = () => {
   const tagID = "copyright-year";
   const copyrightYear = document.getElementById(tagID);
   const currentYear = new Date().getFullYear();
@@ -6,6 +6,5 @@ function displayCurrentYear() {
   copyrightYear.textContent = currentYear;
 }
 
-document.addEventListener("turbolinks:load", function() {
-  this.addEventListener("DOMContentLoaded", displayCurrentYear());
-});
+
+export default displayCurrentYearInFooter;
