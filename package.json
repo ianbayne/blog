@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "bundle exec bridgetown build --url https://ianbayne.github.io",
+    "build": "bundle exec bridgetown build --base_path /ianbayne.github.io --url https://ianbayne.github.io",
     "serve": "bundle exec bridgetown serve",
     "clean": "bundle exec bridgetown clean",
     "webpack-build": "webpack --mode production",
