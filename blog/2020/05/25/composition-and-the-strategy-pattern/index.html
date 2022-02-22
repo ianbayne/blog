@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<!-- TODO: Remove temporary redirect once github pages works again -->
+<meta http-equiv="refresh" content="1; url=https://ianbayne.gitlab.io/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Composition and the Strategy Pattern | Ian Bayne&#39;s Blog</title>
+
+<meta name="description" content="Ian Bayne's home on the web" />
+
+<link rel="stylesheet" href="/ianbayne.github.io/_bridgetown/static/css/all.c73f0b00eca25cb43877.css" />
+<script src="/ianbayne.github.io/_bridgetown/static/js/all.0fe525e935d89d8e17de.js" defer></script>
+
+  </head>
+  <body class="post ">
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper"><div class="site-title"><a href="/">IB</a></div><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+            <a class="page-link" href="/about">About</a>
+  <a class="page-link" href="/blog">Blog</a>
+  <a class="page-link" href="/photos">Photos</a>
+  <a class="page-link" href="/reviews">Reviews</a>
+
+        </div>
+      </nav></div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper"><div class="breadcrumbs"><a href="/ianbayne.github.io/">Home</a><span>></span></div><article class="h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="page-title no-margin" itemprop="name headline">Composition and the Strategy Pattern</h1><div class="tag-list"></div><p class="post-meta">
+      <time class="dt-published" datetime="2020-05-25T00:00:00+09:00" itemprop="datePublished">May 25, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Coming from a self-taught and bootcamp background, I recognize there are a number of fundamental CS principles I’m having to play catch up in regard to.<!-- more --> As part of my efforts to rectify this, I’ve recently been diving into <a href="https://www.amazon.com/gp/product/0596007124/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596007124&amp;linkCode=as2&amp;tag=ianbayne-20&amp;linkId=629ed42ef88ca10e6d67dcd5cd937589">Head First Design Patterns</a>, and thought I’d write out a post solidifying some of the things I’ve been learning.</p>
+
+<p>Since the book’s examples are in Java, and I’m teaching myself Java, I’ll work through examples in that language rather than one I’m more familiar with, like Ruby. Forcing myself to think about the same concept from different angles has been enormously helpful in the past, however, so in a later post I’ll take a look at how implementation could be handled in a different language.</p>
+
+<h2 id="the-strategy-pattern">The strategy pattern</h2>
+
+<p>In short, the strategy pattern is all about encapsulating the parts of our code that change and making those parts interchangeable. This allows for easy expandability with a minimum of work, and results in reusable code that requires less maintenance. Assuming you haven’t fouled things up somewhere, at least.</p>
+
+<p>In order to explain, I’ll start with a simple example. Say we have an <code class="highlighter-rouge">Animal</code> class with a method for making noise:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hi there!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now this works just fine if the only type of animal we’re instantiating is one that can talk:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Animal</span> <span class="n">human</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Animal</span><span class="o">();</span>
+    <span class="n">human</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="o">=&gt;</span> <span class="nc">Hi</span> <span class="n">there</span><span class="o">!</span>
+</code></pre></div></div>
+
+<p>But it falls down a bit with ones that can’t:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Animal</span> <span class="n">dolphin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Animal</span><span class="o">();</span>
+    <span class="n">dolphin</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="o">=&gt;</span> <span class="nc">Hi</span> <span class="n">there</span><span class="o">!</span>
+</code></pre></div></div>
+
+<p>(Why dolphins you ask? Because I just got finished reading <a href="/ianbayne.github.io/reviews/startide-rising">Startide Rising</a> by David Brin and dolphins, or at least their sentient descendants, feature quite prominently. Scifi nerds take note: This is a fun one!)</p>
+
+<p>All well and good, but say we want different types of animals and we want them to make noises more suitable to their distinct animal-ness? One way would be to create a couple of subclasses that inherit from our <code class="highlighter-rouge">Animal</code> class and define their own <code class="highlighter-rouge">makeNoise()</code> methods. While doing so, let’s also change our <code class="highlighter-rouge">Animal</code> class into an abstract class to use as a reference for what methods our subclasses need to define. Why? Because it’s a concept I’m just learning about and want to drum into my thick cranium with repeated forced exposure of course.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hi there!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dolphin</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"&lt;&lt; Clicks and whistles &gt;&gt;"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Our different animals now make the sort of noises we expect from them:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Human</span> <span class="n">human</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Human</span><span class="o">();</span>
+    <span class="n">human</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+    
+    <span class="nc">Dolphin</span> <span class="n">dolphin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dolphin</span><span class="o">();</span>
+    <span class="n">dolphin</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="o">=&gt;</span> <span class="nc">Hi</span> <span class="n">there</span><span class="o">!</span>
+   <span class="o">&lt;&lt;</span> <span class="nc">Clicks</span> <span class="n">and</span> <span class="n">whistles</span> <span class="o">&gt;&gt;</span>
+</code></pre></div></div>
+
+<p>While this implementation works, it isn’t especially reusable. For example, what if we then want to create a talking <code class="highlighter-rouge">Parrot</code> class? If we follow the inheritance implementation above, we’ll have to define a <code class="highlighter-rouge">makeNoise()</code> method in <code class="highlighter-rouge">Parrot</code> that will be an exact duplicate of the one for <code class="highlighter-rouge">Human</code>. Or we’ll have to instantiate an instance of the <code class="highlighter-rouge">Human</code> class for our parrot and while that’s fine now since we only have a single method, what about when we start adding more methods and instance variables specific to humanity? We’ll wind up with parrots with two legs and a righteous sense of self-importance.</p>
+
+<p>Instead of using inheritance then let’s encapsulate the parts of our classes that change so we can alter them without affecting the parts that don’t. To do so, we’ll start by creating a new class to represent that behavior, <code class="highlighter-rouge">NoiseBehavior</code>. This will be an interface that all noise classes will implement:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">NoiseBehavior</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now each noise class needs to implement its own <code class="highlighter-rouge">makeNoise()</code> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClicksAndWhistles</span> <span class="kd">implements</span> <span class="nc">NoiseBehavior</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"&lt;&lt; Clicks and whistles &gt;&gt;"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Speak</span> <span class="kd">implements</span> <span class="nc">NoiseBehavior</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hi there!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Next let’s add an instance variable to the <code class="highlighter-rouge">Animal</code> class and call our interface’s <code class="highlighter-rouge">makeNoise()</code> method on it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">NoiseBehavior</span> <span class="n">noiseBehavior</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeNoise</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">noiseBehavior</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Each subclass can then polymorphically set its <code class="highlighter-rouge">noiseBehavior</code> instance variable in its respective constructor to reference the specific behavior we require at runtime: speaking for humans and parrots, whistling and clicking for dolphins. This is a technique called <a href="https://en.wikipedia.org/wiki/Object_composition">composition</a> wherein a class references an object of another class in an instance variable.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dolphin</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Dolphin</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">noiseBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClicksAndWhistles</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Parrot</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Parrot</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">noiseBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Speak</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Human</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">noiseBehavior</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Speak</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We’re now reusing our <code class="highlighter-rouge">Speak</code> class and each of our animals is behaving as expected:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Human</span> <span class="n">human</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Human</span><span class="o">();</span>
+    <span class="n">human</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+    
+    <span class="nc">Dolphin</span> <span class="n">dolphin</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dolphin</span><span class="o">();</span>
+    <span class="n">dolphin</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+
+    <span class="nc">Parrot</span> <span class="n">parrot</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Parrot</span><span class="o">();</span>
+    <span class="n">parrot</span><span class="o">.</span><span class="na">makeNoise</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="o">=&gt;</span> <span class="nc">Hi</span> <span class="n">there</span><span class="o">!</span>
+   <span class="o">&lt;&lt;</span> <span class="nc">Clicks</span> <span class="n">and</span> <span class="n">whistles</span> <span class="o">&gt;&gt;</span>
+   <span class="nc">Hi</span> <span class="n">there</span><span class="o">!</span>
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/ianbayne.github.io/blog/2020/05/25/composition-and-the-strategy-pattern/" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <p>&copy; <span id="copyright-year"></span> <a href="https://www.github.com/ianbayne">Ian Bayne</a></p>
+  </div>
+</footer>
+
+  </body>
+</html>
