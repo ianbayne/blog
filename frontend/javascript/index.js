@@ -1,4 +1,4 @@
-import "index.scss"
+import "application.sass.scss"
 import * as Turbo from "@hotwired/turbo"
 
 // Uncomment the line below to add transition animations when Turbo navigates.
